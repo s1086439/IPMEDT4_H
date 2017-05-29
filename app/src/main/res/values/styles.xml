@@ -10,4 +10,13 @@
 
     <style name="IPMEDT4" parent="AppTheme" />
 
+    <style name="IPMEDT4.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="IPMEDT4.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="IPMEDT4.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
