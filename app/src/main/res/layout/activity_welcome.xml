@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="118dp"
-        android:text="Welkom patient!"
+        android:text="@string/welkom"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
