@@ -1,6 +1,6 @@
 <resources>
 
-    //test
+    //test1
     <string name="app_name">IPMEDT4_H</string>
     <string name="title_activity_exercises">ExercisesActivity</string>
     <string name="action_settings">Settings</string>
