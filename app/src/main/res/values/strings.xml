@@ -1,7 +1,23 @@
+
 <resources>
     <string name="app_name">IPMEDT4_H</string>
     <string name="title_activity_exercises">ExercisesActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_format">Oefeningenweek: %1$d</string>
     <string name="welkom">Welkom patient</string>
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">VOLGENDE</string>
+    <string name="skip">OVERSLAAN</string>
+    <string name="start">EINDE</string>    <string name="slide_1_title">Welkom!</string>
+    <string name="slide_1_desc">Slide verder om de tutorial te beginnen</string>
+
+    <string name="slide_2_title">Oefeningen</string>
+    <string name="slide_2_desc">Je kan je oefeningen goed bijhouden en kijken of je goed revalideert.</string>
+
+    <string name="slide_3_title">Voeding</string>
+    <string name="slide_3_desc">Daarnaast kan je ook op je voeding letten zodat je zo snel mogelijk revalideert.</string>
+
+    <string name="slide_4_title">Profiel</string>
+    <string name="slide_4_desc">Houd iedere dag bij hoe goed je revalideert en hoe alles gaat</string>
+
 </resources>
