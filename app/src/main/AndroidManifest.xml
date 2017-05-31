@@ -20,7 +20,8 @@
         <activity
             android:name=".ExercisesActivity"
             android:label="Oefeningen"
-            android:theme="@style/IPMEDT4.NoActionBar"></activity>
+            android:theme="@style/IPMEDT4.NoActionBar" />
+        <activity android:name=".SimpleListView"></activity>
     </application>
 
 </manifest>
