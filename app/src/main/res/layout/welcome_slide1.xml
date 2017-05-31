@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slide_1_title"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
             android:paddingRight="@dimen/desc_padding"
             android:text="@string/slide_1_desc"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc" />
 
     </LinearLayout>

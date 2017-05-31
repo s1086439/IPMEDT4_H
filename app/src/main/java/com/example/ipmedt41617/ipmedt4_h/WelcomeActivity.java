@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -40,10 +39,6 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }
 
-        // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
 
         setContentView(R.layout.activity_welcome);
 
@@ -64,8 +59,6 @@ public class WelcomeActivity extends AppCompatActivity {
         // adding bottom dots
         addBottomDots(0);
 
-        // making notification bar transparent
-        changeStatusBarColor();
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
@@ -129,9 +122,7 @@ public class WelcomeActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-            v.vibrate(400);
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
@@ -156,16 +147,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
-    /**
-     * Making notification bar transparent
-     */
-    private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.WHITE);
-        }
-    }
 
     /**
      * View pager adapter

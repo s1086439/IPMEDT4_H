@@ -12,6 +12,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">?attr/colorControlNormal</item>
+        <item name="android:statusBarColor">?android:attr/colorButtonNormal</item>
+    </style>
+
+    <style name="IPMEDT4.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">?attr/colorControlActivated</item>
     </style>
 </resources>
