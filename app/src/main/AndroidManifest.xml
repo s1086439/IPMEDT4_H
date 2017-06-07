@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".VideoActivity" />
         <activity
             android:name=".ExercisesActivity"
             android:label="Oefeningen"
