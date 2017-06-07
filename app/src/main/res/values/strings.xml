@@ -3,5 +3,14 @@
     <string name="title_activity_exercises">ExercisesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="welkom">Welkom patient</string>
+
+    // activity_welcome
+    <string name="textViewWelcome">Welkom patient</string>
+    <string name="btnWelcome">Start oefeningen</string>
+
+    // fragment_week 1
+    <string name="textViewFrag1">Oefening 1</string>
+    <string name="placeHolderVideoFrag1">VIDEO</string>
+    <string name="btnFrag1">BUTTON 1</string>
+
 </resources>

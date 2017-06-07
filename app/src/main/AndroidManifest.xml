@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ipmedt41617.ipmedt4_h">
 
     <application
@@ -20,7 +21,7 @@
         <activity
             android:name=".ExercisesActivity"
             android:label="Oefeningen"
-            android:theme="@style/IPMEDT4.NoActionBar"></activity>
+            android:theme="@style/IPMEDT4.NoActionBar" />
     </application>
 
 </manifest>
