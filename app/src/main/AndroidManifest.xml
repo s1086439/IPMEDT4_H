@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/IPMEDT4">
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,9 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExercisesActivity"
+            android:name=".OefeningActivity"
             android:label="Oefeningen"
             android:theme="@style/IPMEDT4.NoActionBar" />
+        <activity
+            android:name=".OefeningenActivity"
+            android:label="@string/title_activity_oefeningen"
+            android:theme="@style/IPMEDT4.NoActionBar"></activity>
     </application>
 
 </manifest>

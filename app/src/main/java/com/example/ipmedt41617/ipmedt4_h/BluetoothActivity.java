@@ -3,12 +3,10 @@ package com.example.ipmedt41617.ipmedt4_h;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +21,9 @@ import java.util.Set;
 import java.util.UUID;
 
 // De eerste opzet voor de communicatie tussen Android, de ESP8266 en MPU-6050
-// In MainActivity als test
+// In BluetoothActivity als test
 
-public class MainActivity extends AppCompatActivity {
+public class BluetoothActivity extends AppCompatActivity {
     private final String DEVICE_ADDRESS="98:D3:31:FB:14:C0";
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");//Serial Port Service ID
     private BluetoothDevice device;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_bluetooth);
         startButton = (Button) findViewById(R.id.buttonStart);
         sendButton = (Button) findViewById(R.id.buttonSend);
         clearButton = (Button) findViewById(R.id.buttonClear);
