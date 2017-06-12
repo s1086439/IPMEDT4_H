@@ -9,6 +9,7 @@
     <color name="bg_screen2">#fff</color>
     <color name="bg_screen3">#fff</color>
     <color name="bg_screen4">#fff</color>
+    <color name="bg_screen5">#fff</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#9E9E9E</color>
