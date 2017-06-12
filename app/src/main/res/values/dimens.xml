@@ -10,4 +10,6 @@
     <dimen name="slide_desc">16sp</dimen>
     <dimen name="desc_padding">40sp</dimen>
     <dimen name="appbar_padding_top">8sp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
 </resources>

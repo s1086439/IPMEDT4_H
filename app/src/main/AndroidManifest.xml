@@ -6,22 +6,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Health IT"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/IPMEDT4">
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".ExercisesActivity"
-            android:label="Oefeningen"
-            android:theme="@style/IPMEDT4.NoActionBar" />
-        <activity android:name=".SimpleListView"></activity>
     </application>
 
 </manifest>
