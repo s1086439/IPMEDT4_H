@@ -73,7 +73,11 @@ public class OefeningActivity extends AppCompatActivity {
         btText = (TextView)findViewById(R.id.bt);
         l2 = (LinearLayout)findViewById(R.id.linearLayout2);
 
+        // Type oefening verkrijgen van het scherm met de oefeningen d.m.v. een klik.
+
         oefening = new Oefening(getIntent().getStringExtra("naam"), getIntent().getStringExtra("omschrijving"));
+
+        // Aanmaken oefeningen.
 
         oefening.toevoegenStap("1. Plaats uw been schuin", "oefening_1_1", 0, 50);
         oefening.toevoegenStap("2. Beweeg uw been omhoog", "oefening_1_2", 0, 20);
@@ -115,6 +119,8 @@ public class OefeningActivity extends AppCompatActivity {
 
     }
 
+    // Een functie om video's af te spelen.
+
     private void speelVideoOefening(){
         String video = oefening.getStapAtIndex(huidigeStap).getNaamVideo();
         int rawId = getResources().getIdentifier(video, "raw", getPackageName());
@@ -122,6 +128,9 @@ public class OefeningActivity extends AppCompatActivity {
         this.videoView.setVideoURI(uri);
         this.videoView.start();
     }
+
+    /*  Controleer of Bluetooth aanwezig en is ingeschakeld, Zo ja, koppel het toestel met MAC-adres
+        van de HC-05. Zo nee, vraag om Bluetooth in te schakelen. */
 
     public boolean OpzettenBluetooth()
     {
@@ -140,6 +149,7 @@ public class OefeningActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
         if(bondedDevices.isEmpty())
         {
@@ -149,6 +159,7 @@ public class OefeningActivity extends AppCompatActivity {
         {
             for (BluetoothDevice iterator : bondedDevices)
             {
+                // MAC-Adres verkrijgen
                 if(iterator.getAddress().equals("98:D3:31:FB:14:C0"))
                 {
                     device=iterator;
@@ -159,6 +170,9 @@ public class OefeningActivity extends AppCompatActivity {
         }
         return found;
     }
+
+    // Controleer of de gebruiker verbonden is met Bluetooth.
+    // Zet een connectie op met een socket.
 
     public boolean ConnectenBluetooth()
     {
@@ -186,6 +200,10 @@ public class OefeningActivity extends AppCompatActivity {
         }
         return connected;
     }
+
+
+    // Opvangen data van HC-05 m.b.v. een thread.
+    // De data wordt constant vanaf de HC-05 verzonden.
 
     void opvangenBluetoothData()
     {
@@ -232,6 +250,8 @@ public class OefeningActivity extends AppCompatActivity {
         thread.start();
     }
 
+    // Functie om naar de volgende stap te gaan.
+
     private void volgendeStap(){
         if(huidigeStap < oefening.getStappen().size()-1) {
             mp = MediaPlayer.create(this, R.raw.stap_voltooid);
@@ -253,6 +273,8 @@ public class OefeningActivity extends AppCompatActivity {
             bewegenText.setVisibility(View.INVISIBLE);
         }
     }
+
+    // Functie om naar de vorige stap te gaan
 
     private void vorigeStap(){
         huidigeStap--;
