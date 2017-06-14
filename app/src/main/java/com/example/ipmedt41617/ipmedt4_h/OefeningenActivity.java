@@ -1,5 +1,6 @@
 package com.example.ipmedt41617.ipmedt4_h;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,7 +73,9 @@ public class OefeningenActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_instructies) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
             return true;
         }
 

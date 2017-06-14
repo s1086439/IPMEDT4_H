@@ -1,52 +1,87 @@
 package com.example.ipmedt41617.ipmedt4_h;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.ipmedt41617.ipmedt4_h.Models.Oefening;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.UUID;
+
 import static android.R.attr.button;
+import static com.example.ipmedt41617.ipmedt4_h.R.id.bewegenText;
+import static com.example.ipmedt41617.ipmedt4_h.R.id.oefening;
+import static com.example.ipmedt41617.ipmedt4_h.R.id.textView;
 
 public class OefeningActivity extends AppCompatActivity {
 
     private VideoView videoView;
-    private TextView stappen, oefening;
+    private Oefening oefening;
+    private TextView stappenText, oefeningText, btText, detecterenBewegenGif, bewegenText;
     private View dot;
-    private int huidigeStap;
+    private int huidigeOefening, huidigeStap;
+    private BluetoothDevice device;
+    private BluetoothSocket socket;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    boolean deviceConnected=false;
+    private LinearLayout l2;
+    Thread thread;
+    byte buffer[];
+    int bufferPosition;
+    boolean stopThread;
+    private MediaPlayer mp;
+    private int pitch, gereedTeller, tmp;
+    private ArrayList<Integer> initStappenWaardenArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oefening);
 
-        this.huidigeStap = 0;
+        initStappenWaardenArray = new ArrayList<>();
 
-        // Oefening oefening1 = new Oefening(3, "Been omhoog", "Doe je been omhoog.");
+        huidigeStap = 0;
 
         Button vorigeButton = (Button)findViewById(R.id.vorigeButton);
-        Button volgendeButton = (Button)findViewById(R.id.volgendeButton);
-
-        dot = (View)findViewById(R.id.dot);
-
-        LinearLayout dotsLayout = (LinearLayout) findViewById(R.id.dots);
-
-
+        final Button volgendeButton = (Button)findViewById(R.id.volgendeButton);
         this.videoView = (VideoView)findViewById(R.id.video);
+        stappenText = (TextView)findViewById(R.id.stappen);
+        oefeningText = (TextView)findViewById(R.id.oefening);
+        bewegenText = (TextView)findViewById(R.id.bewegenText);
+        detecterenBewegenGif = (TextView)findViewById(R.id.detecterenBewegenGif);
+        btText = (TextView)findViewById(R.id.bt);
+        l2 = (LinearLayout)findViewById(R.id.linearLayout2);
 
-        stappen = (TextView)findViewById(R.id.stappen);
-        oefening = (TextView)findViewById(R.id.oefening);
+        oefening = new Oefening(getIntent().getStringExtra("naam"), getIntent().getStringExtra("omschrijving"));
 
-        oefening.setText(getIntent().getStringExtra("oefening"));
+        oefening.toevoegenStap("1. Plaats uw been schuin", "oefening_1_1", 0, 50);
+        oefening.toevoegenStap("2. Beweeg uw been omhoog", "oefening_1_2", 0, 20);
+        oefening.toevoegenStap("3. Beweeg uw been omlaag", "oefening_1_3", 0, 60);
 
-        stappen.setText("Stap 1");
+        oefeningText.setText(oefening.getNaamOefening());
+
+        stappenText.setText(oefening.getStapAtIndex(huidigeStap).getOmschrijving());
 
         this.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -54,15 +89,13 @@ public class OefeningActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
-
-        speelVideoOefening(1, 1);
+        speelVideoOefening();
 
         vorigeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                speelVideoOefening(1, 1);
-                stappen.setText("Stap 1");
+                vorigeStap();
 
             }
         });
@@ -71,22 +104,160 @@ public class OefeningActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                speelVideoOefening(1, 2);
-                stappen.setText("Stap 2");
+                volgendeStap();
 
             }
         });
+
+        OpzettenBluetooth();
+        ConnectenBluetooth();
+        opvangenBluetoothData();
+
     }
 
-    private void speelVideoOefening(int oefening, int stap){
-        String video = String.format("oefening_%d_%d", oefening, stap);
+    private void speelVideoOefening(){
+        String video = oefening.getStapAtIndex(huidigeStap).getNaamVideo();
         int rawId = getResources().getIdentifier(video, "raw", getPackageName());
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+rawId);
         this.videoView.setVideoURI(uri);
         this.videoView.start();
     }
 
-    private void toevoegenDots(){
-
+    public boolean OpzettenBluetooth()
+    {
+        boolean found=false;
+        BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Toast.makeText(getApplicationContext(),"Apparaat ondersteunt geen Bluetooth",Toast.LENGTH_SHORT).show();
+        }
+        if(!bluetoothAdapter.isEnabled())
+        {
+            Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableAdapter, 0);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        if(bondedDevices.isEmpty())
+        {
+            Toast.makeText(getApplicationContext(),"Koppel eerst apparaten",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            for (BluetoothDevice iterator : bondedDevices)
+            {
+                if(iterator.getAddress().equals("98:D3:31:FB:14:C0"))
+                {
+                    device=iterator;
+                    found=true;
+                    break;
+                }
+            }
+        }
+        return found;
     }
+
+    public boolean ConnectenBluetooth()
+    {
+        boolean connected=true;
+        try {
+            socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"));
+            socket.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+            connected=false;
+        }
+        if(connected)
+        {
+            try {
+                outputStream=socket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                inputStream=socket.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return connected;
+    }
+
+    void opvangenBluetoothData()
+    {
+        final Handler handler = new Handler();
+        stopThread = false;
+        buffer = new byte[1024];
+        Thread thread  = new Thread(new Runnable()
+        {
+            public void run()
+            {
+                while(!Thread.currentThread().isInterrupted() && !stopThread)
+                {
+                    try
+                    {
+                        int byteCount = inputStream.available();
+                        if(byteCount > 0)
+                        {
+                            byte[] rawBytes = new byte[byteCount];
+                            pitch = inputStream.read();
+                            //final String string=new String(rawBytes,"UTF-8");
+                            handler.post(new Runnable() {
+                                public void run()
+                                {
+                                    if (pitch <= oefening.getStapAtIndex(huidigeStap).getBluetoothDoelWaarde() + 5 && pitch >= oefening.getStapAtIndex(huidigeStap).getBluetoothDoelWaarde() - 5) {
+                                        volgendeStap();
+                                    }
+
+                                    btText.setText(String.valueOf(pitch));
+                                }
+
+
+                            });
+
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        stopThread = true;
+                    }
+                }
+            }
+        });
+
+        thread.start();
+    }
+
+    private void volgendeStap(){
+        if(huidigeStap < oefening.getStappen().size()-1) {
+            mp = MediaPlayer.create(this, R.raw.stap_voltooid);
+            mp.start();
+            //oefening.getStapAtIndex(huidigeStap).afspelenGeluidVoltooid();
+            huidigeStap++;
+            stappenText.setText(oefening.getStapAtIndex(huidigeStap).getOmschrijving());
+            speelVideoOefening();
+        } else {
+            stopThread = true;
+            mp = MediaPlayer.create(this, R.raw.oefening_voltooid);
+            mp.start();
+            oefening.getStappen().clear();
+            oefening = null;
+            oefeningText.setText("Voltooid!");
+            detecterenBewegenGif.setVisibility(View.INVISIBLE);
+            stappenText.setVisibility(View.INVISIBLE);
+            videoView.setVisibility(View.INVISIBLE);
+            bewegenText.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void vorigeStap(){
+        huidigeStap--;
+        stappenText.setText(oefening.getStapAtIndex(huidigeStap).getOmschrijving());
+        speelVideoOefening();
+    }
+
 }

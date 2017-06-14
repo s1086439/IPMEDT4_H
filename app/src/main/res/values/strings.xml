@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">IPMEDT4_H</string>
     <string name="title_activity_exercises">ExercisesActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_instructies">Instructies</string>
     <string name="section_format">Oefeningen week: %1$d</string>
     <string name="welkom">Welkom patient</string>
 
@@ -10,17 +10,17 @@
     <string name="skip">OVERSLAAN</string>
     <string name="start">START</string>
 
-    <string name="slide_1_title">Welkom!</string>
-    <string name="slide_1_desc">Slide verder om de tutorial te beginnen</string>
+    <string name="slide_1_title">Revalidatie applicatie</string>
+    <string name="slide_1_desc">Welkom patient, deze applicatie biedt tal van oefeningen voor uw revalidatie. Swipe naar rechts om verder te gaan.</string>
 
-    <string name="slide_2_title">Oefeningen</string>
-    <string name="slide_2_desc">Je kan je oefeningen goed bijhouden en zien hoe je de oefeningen moet maken.</string>
+    <string name="slide_2_title">Band + oefeningen</string>
+    <string name="slide_2_desc">Plaats de meegeleverde beenband stevig om uw been zodat u de oefeningen kunt volgen.</string>
 
     <string name="slide_3_title">Profiel</string>
-    <string name="slide_3_desc">Houd iedere dag bij hoe goed je revalideert en hoe je revalidatie verloopt.</string>
+    <string name="slide_3_desc">Het profiel biedt u de mogelijkheid de activiteiten bij te houden. In overleg met uw arts kunt u de resultaten bespreken.</string>
 
     <string name="slide_4_title">Help</string>
-    <string name="slide_4_desc">Je kan deze tutorial terugvinden bij het settings menu</string>
+    <string name="slide_4_desc">U kunt deze pagina ten alle tijde raadplegen vanaf het scherm met de oefeningen.</string>
 
     <string name="slide_5_title">Veel revalidatiesucces!</string>
     <string name="slide_5_desc">En onthoud: Never skip leg day!</string>

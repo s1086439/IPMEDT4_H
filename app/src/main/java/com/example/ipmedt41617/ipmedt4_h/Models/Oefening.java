@@ -2,37 +2,37 @@ package com.example.ipmedt41617.ipmedt4_h.Models;
 
 import android.net.Uri;
 
-public class Oefening {
-    private String titel, omschrijving;
-    private int stappen;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Oefening(int stappen, String titel, String omschrijving){
-        this.titel = titel;
-        this.omschrijving = omschrijving;
-        this.stappen = stappen;
+public class Oefening {
+    private String naamOefening, omschrijvingOefening;
+    private ArrayList<Stap> stappen;
+
+    public Oefening(String naamOefening, String omschrijving){
+        this.stappen = new ArrayList<Stap>();
+        this.naamOefening = naamOefening;
+        this.omschrijvingOefening = omschrijving;
+    }
+
+    public String getNaamOefening() {
+        return this.naamOefening;
+    }
+
+    public void toevoegenStap(String omschrijving, String naamVideo,int minBluetoothWaarde, int maxBluetoothWaarde){
+        this.stappen.add(new Stap(omschrijving, naamVideo, minBluetoothWaarde, maxBluetoothWaarde));
+    }
+
+    public Stap getStapAtIndex(int index){
+        return this.stappen.get(index);
+    }
+
+    public ArrayList getStappen(){
+        return this.stappen;
     }
 
     public String getOmschrijving() {
-        return omschrijving;
-    }
-
-    public String getTitel() {
-        return titel;
-    }
-
-    public int getStappen() {
-        return stappen;
-    }
-
-    public void setTitel(String titel) {
-        this.titel = titel;
-    }
-
-    public void setOmschrijving(String omschrijving) {
-        this.omschrijving = omschrijving;
-    }
-
-    public void setStappen(int stappen) {
-        this.stappen = stappen;
+        return this.omschrijvingOefening;
     }
 }
