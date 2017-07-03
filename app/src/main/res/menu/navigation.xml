@@ -2,18 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 <item
-    android:id="@+id/navigation_profile"
+    android:id="@+id/navigation_progress"
     android:icon="@drawable/ic_person"
-    android:title="Profiel" />
+    android:title="@string/progress_menu" />
 
 <item
     android:id="@+id/navigation_oefeningen"
     android:icon="@drawable/ic_fitness"
-    android:title="Oefeningen" />
+    android:title="@string/exercises_menu" />
 
-<item
-    android:id="@+id/navigation_settings"
-    android:icon="@drawable/ic_settings"
-    android:title="Opties" />
 
 </menu>

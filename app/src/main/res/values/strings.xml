@@ -26,4 +26,7 @@
     <string name="slide_5_title">Veel revalidatiesucces!</string>
     <string name="slide_5_desc">En onthoud: Never skip leg day!</string>
 
+    <string name="exercises_menu">Oefeningen</string>
+    <string name="progress_menu">Voortgang</string>
+
 </resources>
