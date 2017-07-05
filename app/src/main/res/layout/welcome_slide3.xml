@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
-            app:srcCompat="@drawable/ic_person_red" />
+            app:srcCompat="@drawable/ic_bluetooth" />
 
         <TextView
             android:layout_width="wrap_content"

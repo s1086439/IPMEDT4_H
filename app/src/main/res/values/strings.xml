@@ -15,13 +15,22 @@
     <string name="slide_1_desc">Slide verder om de tutorial te beginnen</string>
 
     <string name="slide_2_title">Oefeningen</string>
-    <string name="slide_2_desc">Je kan je oefeningen goed bijhouden en zien hoe je de oefeningen moet maken.</string>
+    <string name="slide_2_desc">Om een oefening te starten ga je naar
+        \n de week toe waar je je in bevind en
+        \n klik je op de corresponderende dag
+    </string>
 
-    <string name="slide_3_title">Profiel</string>
-    <string name="slide_3_desc">Houd iedere dag bij hoe goed je revalideert en hoe je revalidatie verloopt.</string>
+    <string name="slide_3_title">Oefeningband</string>
+    <string name="slide_3_desc">Verbind de oefeningband met je applicatie
+        \n doormiddel van Bluetooth en begin met oefenen!
+    </string>
 
-    <string name="slide_4_title">Help</string>
-    <string name="slide_4_desc">Je kan deze tutorial terugvinden bij het settings menu</string>
+    <string name="slide_4_title">Voortgang</string>
+    <string name="slide_4_desc">Je voortgang kan je zien
+        \n bij het voortgangsscherm
+        \n Deze kan je zien door naar links te swipen!
+        \n Veel succes bij de revalidatie!
+    </string>
 
     <string name="slide_5_title">Veel revalidatiesucces!</string>
     <string name="slide_5_desc">En onthoud: Never skip leg day!</string>
