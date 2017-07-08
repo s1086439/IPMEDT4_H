@@ -2,37 +2,63 @@ package com.example.ipmedt41617.ipmedt4_h.Models;
 
 import android.net.Uri;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Oefening {
-    private String naamOefening, omschrijvingOefening;
-    private ArrayList<Stap> stappen;
+public class Oefening implements Serializable{
 
-    public Oefening(String naamOefening, String omschrijving){
-        this.stappen = new ArrayList<Stap>();
-        this.naamOefening = naamOefening;
-        this.omschrijvingOefening = omschrijving;
+    private int id, week, voltooid;
+    private String naam, omschrijving;
+
+    public Oefening(){}
+
+    public Oefening(int id, String naam, String omschrijving, int week, int voltooid) {
+        this.id = id;
+        this.naam = naam;
+        this.omschrijving = omschrijving;
+        this.week = week;
+        this.voltooid = voltooid;
     }
 
-    public String getNaamOefening() {
-        return this.naamOefening;
+    public int getId() {
+        return id;
     }
 
-    public void toevoegenStap(String omschrijving, String naamVideo,int minBluetoothWaarde, int maxBluetoothWaarde){
-        this.stappen.add(new Stap(omschrijving, naamVideo, minBluetoothWaarde, maxBluetoothWaarde));
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Stap getStapAtIndex(int index){
-        return this.stappen.get(index);
+    public int getWeek() {
+        return week;
     }
 
-    public ArrayList getStappen(){
-        return this.stappen;
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    public int getVoltooid() {
+        return voltooid;
+    }
+
+    public void setVoltooid(int voltooid) {
+        this.voltooid = voltooid;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 
     public String getOmschrijving() {
-        return this.omschrijvingOefening;
+        return omschrijving;
+    }
+
+    public void setOmschrijving(String omschrijving) {
+        this.omschrijving = omschrijving;
     }
 }

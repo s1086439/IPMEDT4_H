@@ -17,12 +17,36 @@
     <string name="slide_2_desc">Plaats de meegeleverde beenband stevig om uw been zodat u de oefeningen kunt volgen.</string>
 
     <string name="slide_3_title">Profiel</string>
-    <string name="slide_3_desc">Het profiel biedt u de mogelijkheid de activiteiten bij te houden. In overleg met uw arts kunt u de resultaten bespreken.</string>
+    <string name="slide_3_desc">Het profiel biedt u de mogelijkheid de activiteiten bij te houden. In overleg met uw arts of fysiotherapeut kunt u de resultaten bespreken.</string>
 
     <string name="slide_4_title">Help</string>
-    <string name="slide_4_desc">U kunt deze pagina ten alle tijde raadplegen vanaf het scherm met de oefeningen.</string>
+    <string name="slide_4_desc">Mocht u verdere uitleg nodig hebben kunt u de instructies in het menu (rechtsboven in het profielscherm) raadplegen.</string>
 
     <string name="slide_5_title">Veel revalidatiesucces!</string>
     <string name="slide_5_desc">En onthoud: Never skip leg day!</string>
     <string name="title_activity_oefeningen">OefeningenActivity</string>
+
+    <string name="instructies_1">Welkom bij deze applicatie!
+        In de applicatie kan je goed bijhouden hoe je revalidatie verloopt
+        n en daarbij kan je ook oefeningen doen!\n
+
+        Om te beginnen zet je de gipsband aan en laat
+        deze met je mobiel verbinden via Bluetooth.\n
+        Als je band verbonden is kan je de oefening gaan doen!\n\n
+
+        Om een oefening te starten
+        klik je op de oefening en zet je je
+        been in de aangewezen startpositie.\n
+        Hierna doe je wat er aangegeven wordt bij de stappen.\n
+        Volg de stappen op en je hebt de oefening gedaan.\n
+        Tijdens de oefening is het mogelijk om stappen over te slaan of opnieuw te doen door op \'volgende\' en \'vorige\' te klikken.\n\n
+
+        Hiernaast is het ook mogelijk om je voortgang te
+        bekijken in het voortgangscherm.\n
+        Deze kan je kan vinden door naar links te swipen.
+        Hier staan allerlei statistieken over je oefeningen
+        en je voortgang.
+
+        Veel succes met het revalideren!
+    </string>
 </resources>

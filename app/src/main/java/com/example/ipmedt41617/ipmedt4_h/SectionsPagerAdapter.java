@@ -1,57 +1,48 @@
 package com.example.ipmedt41617.ipmedt4_h;
 
 
+import android.content.Context;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.ipmedt41617.ipmedt4_h.Fragments.OefeningFragment;
-import com.example.ipmedt41617.ipmedt4_h.Fragments.WelkomFragment;
+import com.example.ipmedt41617.ipmedt4_h.Fragments.OefeningenFragment;
+import com.example.ipmedt41617.ipmedt4_h.Fragments.ProfielFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private int fragmentCount;
 
-    public SectionsPagerAdapter(FragmentManager fm) {
+    public SectionsPagerAdapter(FragmentManager fm, int fragmentCount) {
         super(fm);
+        this.fragmentCount = fragmentCount + 1;
     }
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
-        return 5;
+        return fragmentCount;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new OefeningFragment();
-            case 1:
-                return new OefeningFragment();
-            case 2:
-                return new OefeningFragment();
-            case 3:
-                return new OefeningFragment();
-            case 4:
-                return new OefeningFragment();
-            default:
-                return null;
+        if(position == 0){
+            return new ProfielFragment();
+        } else {
+            OefeningenFragment oefeningFragment = new OefeningenFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", position);
+            oefeningFragment.setArguments(args);
+            return oefeningFragment;
         }
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Week 1";
-            case 1:
-                return "Week 2";
-            case 2:
-                return "Week 3";
-            case 3:
-                return "Week 4";
-            case 4:
-                return "Week 5";
+        if(position == 0){
+            return "profiel";
+        } else {
+            return "week " + position;
         }
-        return null;
     }
 }

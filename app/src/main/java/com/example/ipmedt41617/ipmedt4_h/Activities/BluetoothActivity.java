@@ -1,4 +1,4 @@
-package com.example.ipmedt41617.ipmedt4_h;
+package com.example.ipmedt41617.ipmedt4_h.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
+
+import com.example.ipmedt41617.ipmedt4_h.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

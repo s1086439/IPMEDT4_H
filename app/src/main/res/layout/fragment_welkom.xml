@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.example.ipmedt41617.ipmedt4_h.WelcomeActivity">
+    tools:context="com.example.ipmedt41617.ipmedt4_h.Activities.WelcomeActivity">
 
     <ImageView
         android:layout_width="120sp"

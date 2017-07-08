@@ -3,15 +3,60 @@ package com.example.ipmedt41617.ipmedt4_h.Models;
 
 import java.lang.reflect.Array;
 
-public class Stap{
-    private String omschrijving, naamVideo;
-    private int bluetoothMinWaarde, bluetoothDoelWaarde;
+public class Stap {
+    private int id, bluetoothdoelwaarde, oefeningId, voltooid, stapNummer;
+    private String omschrijving, videoNaam;
 
-    public Stap(String omschrijving, String naamVideo, int bluetoothMinWaarde, int bluetoothDoelWaarde){
+    public Stap(){}
+
+    public Stap(int id, int stapNummer, int bluetoothdoelwaarde, String omschrijving, String videoNaam, int voltooid, int oefeningId) {
+        this.id = id;
+        this.stapNummer = stapNummer;
+        this.bluetoothdoelwaarde = bluetoothdoelwaarde;
         this.omschrijving = omschrijving;
-        this.naamVideo = naamVideo;
-        this.bluetoothMinWaarde = bluetoothMinWaarde;
-        this.bluetoothDoelWaarde = bluetoothDoelWaarde;
+        this.videoNaam = videoNaam;
+        this.voltooid = voltooid;
+        this.oefeningId = oefeningId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getBluetoothdoelwaarde() {
+        return bluetoothdoelwaarde;
+    }
+
+    public void setBluetoothdoelwaarde(int bluetoothdoelwaarde) {
+        this.bluetoothdoelwaarde = bluetoothdoelwaarde;
+    }
+
+    public int getOefeningId() {
+        return oefeningId;
+    }
+
+    public void setOefeningId(int oefeningId) {
+        this.oefeningId = oefeningId;
+    }
+
+    public int getVoltooid() {
+        return voltooid;
+    }
+
+    public void setVoltooid(int voltooid) {
+        this.voltooid = voltooid;
+    }
+
+    public int getStapNummer() {
+        return stapNummer;
+    }
+
+    public void setStapNummer(int stapNummer) {
+        this.stapNummer = stapNummer;
     }
 
     public String getOmschrijving() {
@@ -22,31 +67,11 @@ public class Stap{
         this.omschrijving = omschrijving;
     }
 
-    public String getNaamVideo() {
-        return naamVideo;
+    public String getVideoNaam() {
+        return videoNaam;
     }
 
-    public void setNaamVideo(String naamVideo) {
-        this.naamVideo = naamVideo;
-    }
-
-    public int getBluetoothMinWaarde() {
-        return bluetoothMinWaarde;
-    }
-
-    public void setBluetoothMinWaarde(int bluetoothMinWaarde) {
-        this.bluetoothMinWaarde = bluetoothMinWaarde;
-    }
-
-    public int getBluetoothDoelWaarde() {
-        return bluetoothDoelWaarde;
-    }
-
-    public void setBluetoothDoelWaarde(int bluetoothDoelWaarde) {
-        this.bluetoothDoelWaarde = bluetoothDoelWaarde;
-    }
-
-    public void afspelenGeluidVoltooid(){
-
+    public void setVideoNaam(String videoNaam) {
+        this.videoNaam = videoNaam;
     }
 }
