@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">IPMEDT4_H</string>
     <string name="title_activity_exercises">ExercisesActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_instructies">Instructies</string>
     <string name="section_format">Oefeningen week: %1$d</string>
     <string name="welkom">Welkom patient</string>
 
@@ -10,19 +10,43 @@
     <string name="skip">OVERSLAAN</string>
     <string name="start">START</string>
 
-    <string name="slide_1_title">Welkom!</string>
-    <string name="slide_1_desc">Slide verder om de tutorial te beginnen</string>
+    <string name="slide_1_title">Revalidatie applicatie</string>
+    <string name="slide_1_desc">Welkom patient, deze applicatie biedt tal van oefeningen voor uw revalidatie. Swipe naar rechts om verder te gaan.</string>
 
-    <string name="slide_2_title">Oefeningen</string>
-    <string name="slide_2_desc">Je kan je oefeningen goed bijhouden en zien hoe je de oefeningen moet maken.</string>
+    <string name="slide_2_title">Band + oefeningen</string>
+    <string name="slide_2_desc">Plaats de meegeleverde beenband stevig om uw been zodat u de oefeningen kunt volgen.</string>
 
     <string name="slide_3_title">Profiel</string>
-    <string name="slide_3_desc">Houd iedere dag bij hoe goed je revalideert en hoe je revalidatie verloopt.</string>
+    <string name="slide_3_desc">Het profiel biedt u de mogelijkheid de activiteiten bij te houden. In overleg met uw arts of fysiotherapeut kunt u de resultaten bespreken.</string>
 
     <string name="slide_4_title">Help</string>
-    <string name="slide_4_desc">Je kan deze tutorial terugvinden bij het settings menu</string>
+    <string name="slide_4_desc">Mocht u verdere uitleg nodig hebben kunt u de instructies in het menu (rechtsboven in het profielscherm) raadplegen.</string>
 
     <string name="slide_5_title">Veel revalidatiesucces!</string>
     <string name="slide_5_desc">En onthoud: Never skip leg day!</string>
     <string name="title_activity_oefeningen">OefeningenActivity</string>
+
+    <string name="instructies_1">Welkom bij deze applicatie!
+        In de applicatie kan je goed bijhouden hoe je revalidatie verloopt
+        n en daarbij kan je ook oefeningen doen!\n
+
+        Om te beginnen zet je de gipsband aan en laat
+        deze met je mobiel verbinden via Bluetooth.\n
+        Als je band verbonden is kan je de oefening gaan doen!\n\n
+
+        Om een oefening te starten
+        klik je op de oefening en zet je je
+        been in de aangewezen startpositie.\n
+        Hierna doe je wat er aangegeven wordt bij de stappen.\n
+        Volg de stappen op en je hebt de oefening gedaan.\n
+        Tijdens de oefening is het mogelijk om stappen over te slaan of opnieuw te doen door op \'volgende\' en \'vorige\' te klikken.\n\n
+
+        Hiernaast is het ook mogelijk om je voortgang te
+        bekijken in het voortgangscherm.\n
+        Deze kan je kan vinden door naar links te swipen.
+        Hier staan allerlei statistieken over je oefeningen
+        en je voortgang.
+
+        Veel succes met het revalideren!
+    </string>
 </resources>

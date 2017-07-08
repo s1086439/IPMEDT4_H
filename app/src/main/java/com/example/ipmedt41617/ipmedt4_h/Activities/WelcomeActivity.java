@@ -1,4 +1,4 @@
-package com.example.ipmedt41617.ipmedt4_h;
+package com.example.ipmedt41617.ipmedt4_h.Activities;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +20,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ipmedt41617.ipmedt4_h.DatabaseHelper;
+import com.example.ipmedt41617.ipmedt4_h.Models.Patient;
+import com.example.ipmedt41617.ipmedt4_h.R;
+import com.example.ipmedt41617.ipmedt4_h.SharedPrefs;
+
 // Eerst activity voor de gebruiker
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -34,64 +39,57 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Kijken of het de eerste keer is dat de applicatie wordt opgestart
 
-        /*prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchHomeScreen();
-            finish();
-        }
-        // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }*/
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        if(SharedPrefs.getInstance(this).getBooleanValue("firstRun")) {
+            viewPager = (ViewPager) findViewById(R.id.view_pager);
+            dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
+            btnSkip = (Button) findViewById(R.id.btn_skip);
+            btnNext = (Button) findViewById(R.id.btn_next);
+
+            // Layouts van de welkom sliders
+
+            layouts = new int[]{
+                    R.layout.welcome_slide1,
+                    R.layout.welcome_slide2,
+                    R.layout.welcome_slide3,
+                    R.layout.welcome_slide4};
+
+            // Het toevoegen van de dots
+
+            addBottomDots(0);
+
+            changeStatusBarColor();
 
 
-        // Layouts van de welkom sliders
+            myViewPagerAdapter = new WelcomePagerAdapter();
+            viewPager.setAdapter(myViewPagerAdapter);
+            viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        layouts = new int[]{
-                R.layout.welcome_slide1,
-                R.layout.welcome_slide2,
-                R.layout.welcome_slide3,
-                R.layout.welcome_slide4};
-
-        // Het toevoegen van de dots
-
-        addBottomDots(0);
-
-        changeStatusBarColor();
-
-
-        myViewPagerAdapter = new WelcomePagerAdapter();
-        viewPager.setAdapter(myViewPagerAdapter);
-        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchHomeScreen();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // kijken of het de laatste pagina is
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // ga naar het volgende scherm
-                    viewPager.setCurrentItem(current);
-                } else {
+            btnSkip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     launchHomeScreen();
                 }
-            }
-        });
+            });
+
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // kijken of het de laatste pagina is
+                    int current = getItem(+1);
+                    if (current < layouts.length) {
+                        // ga naar het volgende scherm
+                        viewPager.setCurrentItem(current);
+                    } else {
+                        launchHomeScreen();
+                    }
+                }
+            });
+        } else {
+            startActivity(new Intent(WelcomeActivity.this, MenuActivity.class));
+        }
     }
 
     // Toevoegen dots afhankelijk van het aantal pagina's
@@ -121,7 +119,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         //prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, OefeningenActivity.class));
+        startActivity(new Intent(this, PatientgegevensActivity.class));
         finish();
     }
 

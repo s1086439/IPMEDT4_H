@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ipmedt41617.ipmedt4_h.OefeningenActivity">
+    android:background="#efefef"
+    tools:context="com.example.ipmedt41617.ipmedt4_h.Activities.MenuActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

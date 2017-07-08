@@ -8,11 +8,11 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Health IT"
+        android:label="Beenband revalidatie applicatie"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/IPMEDT4">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".Activities.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +20,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OefeningActivity"
+            android:name=".Activities.OefeningActivity"
             android:label="Oefeningen"
             android:theme="@style/IPMEDT4.NoActionBar" />
         <activity
-            android:name=".OefeningenActivity"
-            android:label="@string/title_activity_oefeningen"
-            android:theme="@style/IPMEDT4.NoActionBar"></activity>
+            android:name=".Activities.MenuActivity"
+            android:label="Profiel en oefeningen"
+            android:theme="@style/IPMEDT4.NoActionBar" />
+        <activity android:name=".Activities.PatientgegevensActivity" />
+        <activity android:name=".Activities.InstructiesAcitivy" />
+        <activity android:name=".Activities.InstructiesActivity"></activity>
     </application>
 
 </manifest>
