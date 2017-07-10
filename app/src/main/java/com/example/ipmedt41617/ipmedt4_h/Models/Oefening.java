@@ -9,17 +9,19 @@ import java.util.List;
 
 public class Oefening implements Serializable{
 
-    private int id, week, voltooid;
+    private int id, week, voltooid, dagVanDeWeek, type;
     private String naam, omschrijving;
 
     public Oefening(){}
 
-    public Oefening(int id, String naam, String omschrijving, int week, int voltooid) {
+    public Oefening(int id, String naam, String omschrijving, int week, int dagVanDeWeek, int voltooid, int type) {
         this.id = id;
         this.naam = naam;
         this.omschrijving = omschrijving;
         this.week = week;
         this.voltooid = voltooid;
+        this.dagVanDeWeek = dagVanDeWeek;
+        this.type = type;
     }
 
     public int getId() {
@@ -60,5 +62,21 @@ public class Oefening implements Serializable{
 
     public void setOmschrijving(String omschrijving) {
         this.omschrijving = omschrijving;
+    }
+
+    public int getDagVanDeWeek() {
+        return dagVanDeWeek;
+    }
+
+    public void setDagVanDeWeek(int dagVanDeWeek) {
+        this.dagVanDeWeek = dagVanDeWeek;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

@@ -8,10 +8,14 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -50,7 +54,9 @@ public class OefeningActivity extends BluetoothConnectie {
     private int pitch;
     private Activity act;
     private boolean stopThread;
-    byte buffer[];
+    private byte buffer[];
+    private SeekBar progressie;
+    private FrameLayout frame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +73,8 @@ public class OefeningActivity extends BluetoothConnectie {
         huidigeStap = 0;
 
         oefening = (Oefening) getIntent().getSerializableExtra("Oefening");
-        //stappenList = new ArrayList<>();
 
-        stappenList = dbHelper.querySqliteStappen("SELECT * FROM STAPPEN WHERE oefeningId=" + oefening.getId());
+        stappenList = dbHelper.querySqliteStappen("SELECT * FROM STAPPEN WHERE oefeningType=" + oefening.getType());
 
         stap = stappenList.get(huidigeStap);
 
@@ -78,7 +83,13 @@ public class OefeningActivity extends BluetoothConnectie {
         videoView = (VideoView)findViewById(R.id.video);
         stappenText = (TextView)findViewById(R.id.stappen);
         oefeningText = (TextView)findViewById(R.id.oefeningText);
+        frame = (FrameLayout)findViewById(R.id.frame);
+
         registrerenText = (TextView)findViewById(R.id.registerernText);
+        progressie = (SeekBar) findViewById(R.id.seekBar);
+
+        progressie.setMax(stappenList.size()-1);
+        progressie.setProgress(huidigeStap);
 
         //bewegenText = (TextView)findViewById(R.id.bewegenText);
         detecterenBewegenGif = (TextView)findViewById(R.id.detecterenBewegenGif);
@@ -86,10 +97,7 @@ public class OefeningActivity extends BluetoothConnectie {
         l2 = (LinearLayout)findViewById(R.id.linearLayout2);
 
         oefeningText.setText("Oefening " + oefening.getNaam());
-        stappenText.setText("Stap " + stap.getStapNummer() + " " + stap.getOmschrijving());
-
-        Log.d("oefening volt: ", " " + oefening.getVoltooid());
-        Log.d("oefening id: ", " " + oefening.getId());
+        stappenText.setText("Stap " + stap.getStapNummer() + "/" + stappenList.size() + ": " + stap.getOmschrijving());
 
         this.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -111,11 +119,18 @@ public class OefeningActivity extends BluetoothConnectie {
             @Override
             public void onClick(View view) {
                 volgendeStap();
-
             }
         });
 
         speelVideoOefening();
+
+        progressie.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+
 
         if(super.connectenBluetooth()){
            if(super.opzettenBluetoothStream()){
@@ -129,25 +144,27 @@ public class OefeningActivity extends BluetoothConnectie {
         if(huidigeStap < stappenList.size() - 1) {
             huidigeStap++;
             stap = stappenList.get(huidigeStap);
+            progressie.setProgress(huidigeStap);
             oefeningText.setText("Oefening " + oefening.getNaam());
-            stappenText.setText("Stap " + stap.getStapNummer() + " " + stap.getOmschrijving());
+            stappenText.setText("Stap " + stap.getStapNummer() + "/" + stappenList.size() + ": " + stap.getOmschrijving());
             mp = MediaPlayer.create(this, R.raw.stap_voltooid);
             mp.start();
             speelVideoOefening();
         } else {
             stopThread = true;
             dbHelper.updateQuery("OEFENINGEN", "voltooid", 1, oefening.getId());
-            volgendeButton.setVisibility(VideoView.GONE);
-            vorigeButton.setVisibility(VideoView.GONE);
+            volgendeButton.setVisibility(VideoView.INVISIBLE);
+            vorigeButton.setVisibility(VideoView.INVISIBLE);
             detecterenBewegenGif.setVisibility(ImageView.INVISIBLE);
             registrerenText.setVisibility(TextView.INVISIBLE);
             oefeningText.setVisibility(TextView.INVISIBLE);
-            videoView.setVisibility(VideoView.INVISIBLE);
-            videoView.setVisibility(VideoView.INVISIBLE);
+            frame.setVisibility(VideoView.GONE);
+            progressie.setVisibility(SeekBar.INVISIBLE);
+
             mp = MediaPlayer.create(this, R.raw.oefening_voltooid);
             mp.start();
 
-            stappenText.setText("Oefening " + oefening.getNaam().toLowerCase() + "  voltooid!");
+            stappenText.setText("Oefening " + oefening.getNaam().toLowerCase() + " voltooid!");
 
 
             new Timer().schedule(new TimerTask() {
@@ -158,9 +175,10 @@ public class OefeningActivity extends BluetoothConnectie {
                     startActivity(intent);
                     mp = MediaPlayer.create(getApplicationContext(), R.raw.oefening_voltooid_2);
                     mp.start();
+                    finish();
                     //act.finish();
                 }
-            }, 5000);
+            }, 4000);
 
             //this.finish();
         }
@@ -170,8 +188,9 @@ public class OefeningActivity extends BluetoothConnectie {
         if(huidigeStap > 0) {
             huidigeStap--;
             stap = stappenList.get(huidigeStap);
+            progressie.setProgress(huidigeStap);
             oefeningText.setText("Oefening " + oefening.getNaam());
-            stappenText.setText("Stap " + stap.getStapNummer() + " " + stap.getOmschrijving());
+            stappenText.setText("Stap " + stap.getStapNummer() + "/" + stappenList.size() + ": " + stap.getOmschrijving());
             speelVideoOefening();
         }
     }

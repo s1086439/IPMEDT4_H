@@ -56,7 +56,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.PatientenColumn.PATIENTNUMMER + " INTEGER PRIMARY KEY, " +
                 DatabaseInfo.PatientenColumn.VOORNAAM + " TEXT," +
                 DatabaseInfo.PatientenColumn.ACHTERNAAM + " TEXT," +
-                DatabaseInfo.PatientenColumn.REVALIDATIETIJD + " INTEGER);"
+                DatabaseInfo.PatientenColumn.REVALIDATIETIJD + " INTEGER," +
+                DatabaseInfo.PatientenColumn.REVALIDATIETIJDHUIDIG + " INTEGER);"
         );
 
         db.execSQL("CREATE TABLE " + DatabaseInfo.Tables.OEFENINGEN + " (" +
@@ -64,7 +65,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.OefeningenColumn.NAAM + " TEXT," +
                 DatabaseInfo.OefeningenColumn.OMSCRHIJVING + " TEXT," +
                 DatabaseInfo.OefeningenColumn.WEEK + " INTEGER," +
-                DatabaseInfo.OefeningenColumn.VOLTOOID + " INTEGER);"
+                DatabaseInfo.OefeningenColumn.DAGVANDEWEEK + " INTEGER," +
+                DatabaseInfo.OefeningenColumn.VOLTOOID + " INTEGER," +
+                DatabaseInfo.OefeningenColumn.TYPE + " INTEGER);"
         );
 
         db.execSQL("CREATE TABLE " + DatabaseInfo.Tables.STAPPEN + " (" +
@@ -74,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.StappenCOLUMN.OMSCRHIJVING + " TEXT, " +
                 DatabaseInfo.StappenCOLUMN.VIDEONAAM + " TEXT," +
                 DatabaseInfo.StappenCOLUMN.VOLTOOID + " INTEGER," +
-                DatabaseInfo.StappenCOLUMN.OEFENINGID + " INTEGER);"
+                DatabaseInfo.StappenCOLUMN.OEFENINGTYPE + " INTEGER);"
         );
     }
 
@@ -118,7 +121,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 oefening.setNaam(cursor.getString(1));
                 oefening.setOmschrijving(cursor.getString(2));
                 oefening.setWeek(cursor.getInt(3));
-                oefening.setVoltooid(cursor.getInt(4));
+                oefening.setDagVanDeWeek(cursor.getInt(4));
+                oefening.setVoltooid(cursor.getInt(5));
+                oefening.setType(cursor.getInt(6));
                 OefeningenList.add(oefening);
             } while (cursor.moveToNext());
         }
@@ -140,95 +145,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 stap.setOmschrijving(cursor.getString(3));
                 stap.setVideoNaam(cursor.getString(4));
                 stap.setVoltooid(cursor.getInt(5));
+                stap.setOefeningType(cursor.getInt(6));
                 StappenList.add(stap);
             } while (cursor.moveToNext());
         }
         return StappenList;
     }
+    public Patient querySqlitePatient(String query){
+
+        String selectQuery = query;
+
+        Cursor cursor = mSQLDB.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Patient patient = new Patient();
+                patient.setVoornaam(cursor.getString(1));
+                patient.setRevalidatietijd(cursor.getInt(3));
+                patient.setRevalidatietijdHuidig(cursor.getInt(4));
+                return patient;
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+    }
+
 
     public void updateQuery(String table, String column, Integer value, Integer id){
         ContentValues data = new ContentValues();
         data.put(column, value);
-        db.update(table, data, "id=" + id, null);
+        mSQLDB.update(table, data, "id=" + id, null);
     }
 
     private void vullenDb(){
+
+        addOefening(1,"Strekken","Oefening voor het aansterken van de spieren",1,1,0,1);
+        addOefening(2,"Buigen","Oefening voor het aansterken van de spieren",1,1,0,1);
+        addOefening(3,"Op en neer","Oefening voor het aansterken van de spieren",1,2,0,1);
+        addOefening(4,"Heen en weer","Oefening voor het aansterken van de spieren",2,3,0,1);
+        addOefening(5,"Daling","Oefening voor het aansterken van de spieren",2,2,0,1);
+        addOefening(6,"Op en neer","Oefening voor het aansterken van de spieren",2,2,0,1);
+        addOefening(7,"Op en neer","Oefening voor het aansterken van de spieren",3,1,0,1);
+        addOefening(8,"Heen en weer","Oefening voor het aansterken van de spieren",3,3,0,1);
+
+        addStap(1,1,24,"Positioneer uw been", "oefening_1_1",0,1);
+        addStap(2,2,70,"Been omhoog", "oefening_1_2",0,1);
+        addStap(3,3,20,"Been omlaag", "oefening_1_3",0,1);
+    }
+
+    private void addOefening(int id, String naam, String omschrijving, int week, int dagVanDeWeek, int voltooid, int type){
         ContentValues insertValues = new ContentValues();
-        insertValues.put("id", 1);
-        insertValues.put("naam", "Strekken");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 1);
-        insertValues.put("voltooid", 0);
+        insertValues.put("id", id);
+        insertValues.put("naam", naam);
+        insertValues.put("omschrijving", omschrijving);
+        insertValues.put("week", week);
+        insertValues.put("dagVanDeWeek", dagVanDeWeek);
+        insertValues.put("voltooid", voltooid);
+        insertValues.put("type", type);
         db.insert("OEFENINGEN", null, insertValues);
+    }
 
-        insertValues = new ContentValues();
-        insertValues.put("id", 2);
-        insertValues.put("naam", "Op en neer");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 1);
-        insertValues.put("voltooid", 0);
-        db.insert("OEFENINGEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 3);
-        insertValues.put("naam", "Buigen");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 1);
-        insertValues.put("voltooid", 0);
-        db.insert("OEFENINGEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 4);
-        insertValues.put("naam", "Strekken");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 2);
-        insertValues.put("voltooid", 0);
-        db.insert("OEFENINGEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 5);
-        insertValues.put("naam", "Buigen");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 2);
-        insertValues.put("voltooid", 0);
-        db.insert("OEFENINGEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 6);
-        insertValues.put("naam", "Buigen");
-        insertValues.put("omschrijving", "Oefening voor het aansterken van de spieren");
-        insertValues.put("week", 3);
-        insertValues.put("voltooid", 0);
-        db.insert("OEFENINGEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 1);
-        insertValues.put("stapNummer", 1);
-        insertValues.put("bluetoothDoelwaarde", 25);
-        insertValues.put("omschrijving", "Positioneer uw been");
-        insertValues.put("videoNaam", "oefening_1_1");
-        insertValues.put("voltooid", 0);
-        insertValues.put("oefeningId", 1);
-        db.insert("STAPPEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 2);
-        insertValues.put("stapNummer", 2);
-        insertValues.put("bluetoothDoelwaarde", 70);
-        insertValues.put("omschrijving", "Been omhoog");
-        insertValues.put("videoNaam", "oefening_1_2");
-        insertValues.put("voltooid", 0);
-        insertValues.put("oefeningId", 1);
-        db.insert("STAPPEN", null, insertValues);
-
-        insertValues = new ContentValues();
-        insertValues.put("id", 3);
-        insertValues.put("stapNummer", 3);
-        insertValues.put("bluetoothDoelwaarde", 20);
-        insertValues.put("omschrijving", "Been omlaag");
-        insertValues.put("videoNaam", "oefening_1_3");
-        insertValues.put("voltooid", 0);
-        insertValues.put("oefeningId", 1);
+    private void addStap(int id, int stapNummer, int bluetoothDoelwaarde, String omschrijving, String videoNaam, int voltooid, int oefeningType){
+        ContentValues insertValues = new ContentValues();
+        insertValues.put("id", id);
+        insertValues.put("stapNummer", stapNummer);
+        insertValues.put("bluetoothDoelwaarde", bluetoothDoelwaarde);
+        insertValues.put("omschrijving", omschrijving);
+        insertValues.put("videoNaam", videoNaam);
+        insertValues.put("voltooid", voltooid);
+        insertValues.put("oefeningType", oefeningType);
         db.insert("STAPPEN", null, insertValues);
     }
 }

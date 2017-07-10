@@ -61,10 +61,12 @@ public class PatientgegevensActivity extends AppCompatActivity {
                         values.put(DatabaseInfo.PatientenColumn.VOORNAAM, voornaamText.getText().toString());
                         values.put(DatabaseInfo.PatientenColumn.ACHTERNAAM, "");
                         values.put(DatabaseInfo.PatientenColumn.REVALIDATIETIJD, Integer.parseInt(aantalWeken.getText().toString()));
+                        values.put(DatabaseInfo.PatientenColumn.REVALIDATIETIJDHUIDIG, 0);
                         dbHelper.insert(DatabaseInfo.Tables.PATIENTEN, null, values);
                         SharedPrefs.getInstance(context).putBooleanValue("firstRun", false);
 
                         startActivity(new Intent(PatientgegevensActivity.this, MenuActivity.class));
+                        finish();
                     }
             }
         });

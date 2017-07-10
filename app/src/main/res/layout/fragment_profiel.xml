@@ -36,13 +36,35 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="134dp"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/profile" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="329dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:clickable="false"
+        android:elevation="10dp"
+        android:max="10"
+        android:padding="10dp"
+        android:progress="3"
+        android:progressTint="#49c128" />
+
     <TextView
-        android:id="@+id/oefeningenVoltooidText"
+        android:id="@+id/wekenText1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_gravity="center"
+        android:textAlignment="textEnd" />
+
+    <TextView
+        android:id="@+id/wekenText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -50,7 +72,7 @@
         android:textAllCaps="false" />
 
     <TextView
-        android:id="@+id/wekenText"
+        android:id="@+id/oefeningenVoltooidText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

@@ -29,15 +29,13 @@
         android:paddingTop="15dp"
         android:weightSum="1">
 
-
         <TextView
             android:id="@+id/titelOefening"
             android:layout_width="153dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.06"
             android:padding="20dp"
-            android:text="TextView"
-            android:textAlignment="center" />
+            android:text="TextView" />
 
         <ImageView
             android:id="@+id/check"

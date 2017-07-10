@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.example.ipmedt41617.ipmedt4_h.Activities.OefeningActivity"
-    tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
 
-    <VideoView
-        android:id="@+id/video"
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_weight="0.42" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/black">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <VideoView
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="206dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
-        <Button
-            android:id="@+id/vorigeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="vorige" />
-
-        <Button
-            android:id="@+id/volgendeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="volgende" />
-    </LinearLayout>
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:max="3"
+        android:progress="0"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/stappen"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:elevation="2dp"
+        android:layout_height="50dp"
         android:paddingTop="10dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -51,11 +50,14 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout4"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_below="@+id/seekBar"
+        android:layout_toRightOf="@+id/bt"
+        android:layout_toEndOf="@+id/bt"
+        android:layout_marginTop="11dp" />
 
     <TextView
         android:id="@+id/oefeningText"
@@ -72,12 +74,18 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_below="@+id/stappen"
+        android:layout_toRightOf="@+id/bt"
+        android:layout_toEndOf="@+id/bt" />
 
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/detecterenBewegenGif"
-        android:layout_width="59dp"
-        android:layout_height="57dp"
+        android:layout_width="52dp"
+        android:layout_height="54dp"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/laden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -94,7 +102,8 @@
         android:id="@+id/registerernText"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_weight="0.33"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
         android:text="Bezig met registreren bewegingen..."
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,14 +121,36 @@
         android:id="@+id/bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="95dp"
         android:text="TextView"
         android:visibility="gone"
-        app:layout_constraintRight_toRightOf="@+id/video"
-        app:layout_constraintTop_toBottomOf="@+id/video"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/vorigeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="vorige" />
+
+        <Button
+            android:id="@+id/volgendeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="volgende" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -47,7 +47,7 @@ public class MenuActivity extends AppCompatActivity {
 
         this.dbHelper = DatabaseHelper.getHelper(this);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), countFragments());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), tellenFragments());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -57,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(tab);
     }
 
-    private int countFragments(){
+    private int tellenFragments(){
         Cursor rs = dbHelper.query(DatabaseInfo.Tables.PATIENTEN, new String[]{"revalidatietijd"}, null, null, null, null, null);
         rs.moveToFirst();
         return rs.getInt(rs.getColumnIndex("revalidatietijd"));

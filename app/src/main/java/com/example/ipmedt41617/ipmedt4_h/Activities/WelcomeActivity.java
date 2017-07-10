@@ -89,6 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
             });
         } else {
             startActivity(new Intent(WelcomeActivity.this, MenuActivity.class));
+            finish();
         }
     }
 
