@@ -56,7 +56,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.PatientenColumn.PATIENTNUMMER + " INTEGER PRIMARY KEY, " +
                 DatabaseInfo.PatientenColumn.VOORNAAM + " TEXT," +
                 DatabaseInfo.PatientenColumn.ACHTERNAAM + " TEXT," +
-                DatabaseInfo.PatientenColumn.REVALIDATIETIJD + " INTEGER);"
+                DatabaseInfo.PatientenColumn.REVALIDATIETIJD + " INTEGER," +
+                DatabaseInfo.PatientenColumn.REVALIDATIETIJDHUIDIG + " INTEGER);"
         );
 
         db.execSQL("CREATE TABLE " + DatabaseInfo.Tables.OEFENINGEN + " (" +
@@ -150,6 +151,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return StappenList;
     }
+    public Patient querySqlitePatient(String query){
+
+        String selectQuery = query;
+
+        Cursor cursor = mSQLDB.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Patient patient = new Patient();
+                patient.setVoornaam(cursor.getString(1));
+                patient.setRevalidatietijd(cursor.getInt(3));
+                patient.setRevalidatietijdHuidig(cursor.getInt(4));
+                return patient;
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+    }
+
 
     public void updateQuery(String table, String column, Integer value, Integer id){
         ContentValues data = new ContentValues();

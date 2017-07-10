@@ -16,6 +16,7 @@ public class DatabaseInfo {
         public static final String VOORNAAM = "voornaam";
         public static final String ACHTERNAAM = "achternaam";
         public static final String REVALIDATIETIJD = "revalidatietijd";
+        public static final String REVALIDATIETIJDHUIDIG = "revalidatietijdHuidig";
     }
 
     public class OefeningenColumn {

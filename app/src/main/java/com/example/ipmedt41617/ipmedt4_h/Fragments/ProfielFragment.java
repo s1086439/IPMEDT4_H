@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.ipmedt41617.ipmedt4_h.DatabaseHelper;
 import com.example.ipmedt41617.ipmedt4_h.DatabaseInfo;
+import com.example.ipmedt41617.ipmedt4_h.Models.Patient;
 import com.example.ipmedt41617.ipmedt4_h.R;
 
 import static com.example.ipmedt41617.ipmedt4_h.R.id.aantalWekenText;
@@ -25,6 +26,7 @@ public class ProfielFragment extends Fragment {
     private TextView voornaam, oefeningenVoltooid, wekenText1, wekenText2;
     private Cursor rs;
     private ProgressBar progressie;
+    private Patient patient;
 
     @Nullable
     @Override
@@ -39,28 +41,21 @@ public class ProfielFragment extends Fragment {
         wekenText2 = (TextView) view.findViewById(R.id.wekenText2);
         progressie = (ProgressBar) view.findViewById(R.id.progressBar);
 
+        patient = dbHelper.querySqlitePatient("SELECT * FROM PATIENTEN");
 
-        rs = dbHelper.query(DatabaseInfo.Tables.PATIENTEN, new String[]{"*"}, null, null, null, null, null);
-        rs.moveToFirst();
-        String naam = (String) rs.getString(rs.getColumnIndex("voornaam"));
+        wekenText1.setText((patient.getRevalidatietijdHuidig()+1) + "/" + patient.getRevalidatietijd());
+        progressie.setMax(patient.getRevalidatietijd());
+        wekenText2.setText("U zit in week: " + (patient.getRevalidatietijdHuidig() + 1));
 
-        Cursor rs = dbHelper.query(DatabaseInfo.Tables.PATIENTEN, new String[]{"revalidatietijd"}, null, null, null, null, null);
-        rs.moveToFirst();
-        wekenText1.setText("1/" + rs.getInt(rs.getColumnIndex("revalidatietijd")));
-        progressie.setMax(rs.getInt(rs.getColumnIndex("revalidatietijd")));
-        rs.close();
-
-        progressie.setProgress(1);
+        progressie.setProgress((patient.getRevalidatietijdHuidig() + 1));
 
         rs = dbHelper.rawQuery("SELECT count(id) FROM OEFENINGEN WHERE voltooid=1");
         rs.moveToFirst();
         Integer voltooid = rs.getInt(0);
-        //Integer voltooid = rs.getInt(rs.getColumnIndex("oefeningen"));
         rs.close();
 
-        voornaam.setText("Welkom " + naam);
+        voornaam.setText("Welkom " + patient.getVoornaam());
         oefeningenVoltooid.setText("Oefeningen voltooid: " + voltooid);
-        wekenText2.setText("U zit in week: 1");
 
         return view;
 
