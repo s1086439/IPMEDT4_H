@@ -23,7 +23,9 @@ public class DatabaseInfo {
         public static final String NAAM = "naam";
         public static final String OMSCRHIJVING = "omschrijving";
         public static final String WEEK = "week";
+        public static final String DAGVANDEWEEK = "dagVanDeWeek";
         public static final String VOLTOOID = "voltooid";
+        public static final String TYPE = "type";
     }
 
     public class StappenCOLUMN {
@@ -33,6 +35,6 @@ public class DatabaseInfo {
         public static final String OMSCRHIJVING = "omschrijving";
         public static final String VIDEONAAM = "videoNaam";
         public static final String VOLTOOID = "voltooid";
-        public static final String OEFENINGID = "oefeningId";
+        public static final String OEFENINGTYPE = "oefeningType";
     }
 }

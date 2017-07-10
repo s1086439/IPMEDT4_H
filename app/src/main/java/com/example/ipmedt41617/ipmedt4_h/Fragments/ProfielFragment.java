@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ipmedt41617.ipmedt4_h.DatabaseHelper;
@@ -21,8 +22,9 @@ import static com.example.ipmedt41617.ipmedt4_h.R.id.view;
 public class ProfielFragment extends Fragment {
 
     private DatabaseHelper dbHelper;
-    private TextView voornaam, oefeningenVoltooid, wekenText;
+    private TextView voornaam, oefeningenVoltooid, wekenText1, wekenText2;
     private Cursor rs;
+    private ProgressBar progressie;
 
     @Nullable
     @Override
@@ -33,13 +35,22 @@ public class ProfielFragment extends Fragment {
         this.dbHelper = DatabaseHelper.getHelper(getActivity());
         voornaam = (TextView) view.findViewById(R.id.naamTextId);
         oefeningenVoltooid = (TextView) view.findViewById(R.id.oefeningenVoltooidText);
-        wekenText = (TextView) view.findViewById(R.id.wekenText);
-
+        wekenText1 = (TextView) view.findViewById(R.id.wekenText1);
+        wekenText2 = (TextView) view.findViewById(R.id.wekenText2);
+        progressie = (ProgressBar) view.findViewById(R.id.progressBar);
 
 
         rs = dbHelper.query(DatabaseInfo.Tables.PATIENTEN, new String[]{"*"}, null, null, null, null, null);
         rs.moveToFirst();
         String naam = (String) rs.getString(rs.getColumnIndex("voornaam"));
+
+        Cursor rs = dbHelper.query(DatabaseInfo.Tables.PATIENTEN, new String[]{"revalidatietijd"}, null, null, null, null, null);
+        rs.moveToFirst();
+        wekenText1.setText("1/" + rs.getInt(rs.getColumnIndex("revalidatietijd")));
+        progressie.setMax(rs.getInt(rs.getColumnIndex("revalidatietijd")));
+        rs.close();
+
+        progressie.setProgress(1);
 
         rs = dbHelper.rawQuery("SELECT count(id) FROM OEFENINGEN WHERE voltooid=1");
         rs.moveToFirst();
@@ -49,9 +60,7 @@ public class ProfielFragment extends Fragment {
 
         voornaam.setText("Welkom " + naam);
         oefeningenVoltooid.setText("Oefeningen voltooid: " + voltooid);
-        wekenText.setText("U zit in week 1");
-
-
+        wekenText2.setText("U zit in week: 1");
 
         return view;
 

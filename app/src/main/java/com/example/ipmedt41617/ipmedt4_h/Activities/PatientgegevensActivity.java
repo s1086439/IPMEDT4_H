@@ -65,6 +65,7 @@ public class PatientgegevensActivity extends AppCompatActivity {
                         SharedPrefs.getInstance(context).putBooleanValue("firstRun", false);
 
                         startActivity(new Intent(PatientgegevensActivity.this, MenuActivity.class));
+                        finish();
                     }
             }
         });

@@ -46,7 +46,7 @@ public class OefeningenFragment extends Fragment {
 
         oefeningen = new ArrayList<>();
 
-        for(Oefening oefening : dbHelper.querySqliteOefeningen("SELECT  * FROM OEFENINGEN WHERE week=" + "" + position)){
+        for(Oefening oefening : dbHelper.querySqliteOefeningen("SELECT  * FROM OEFENINGEN WHERE week=" + position + " ORDER BY dagVanDeWeek")){
             this.oefeningen.add(oefening);
         }
 
@@ -60,9 +60,11 @@ public class OefeningenFragment extends Fragment {
         oefeningenListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(getActivity(), OefeningActivity.class);
-            intent.putExtra("Oefening", oefeningen.get(position));
-            startActivity(intent);
+            //if(oefeningen.get(position).getVoltooid() == 0) {
+                Intent intent = new Intent(getActivity(), OefeningActivity.class);
+                intent.putExtra("Oefening", oefeningen.get(position));
+                startActivity(intent);
+            //}
             }
         });
 

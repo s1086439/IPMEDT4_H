@@ -4,19 +4,19 @@ package com.example.ipmedt41617.ipmedt4_h.Models;
 import java.lang.reflect.Array;
 
 public class Stap {
-    private int id, bluetoothdoelwaarde, oefeningId, voltooid, stapNummer;
+    private int id, bluetoothdoelwaarde, oefeningType, voltooid, stapNummer;
     private String omschrijving, videoNaam;
 
     public Stap(){}
 
-    public Stap(int id, int stapNummer, int bluetoothdoelwaarde, String omschrijving, String videoNaam, int voltooid, int oefeningId) {
+    public Stap(int id, int stapNummer, int bluetoothdoelwaarde, String omschrijving, String videoNaam, int voltooid, int oefeningType) {
         this.id = id;
         this.stapNummer = stapNummer;
         this.bluetoothdoelwaarde = bluetoothdoelwaarde;
         this.omschrijving = omschrijving;
         this.videoNaam = videoNaam;
         this.voltooid = voltooid;
-        this.oefeningId = oefeningId;
+        this.oefeningType = oefeningType;
     }
 
     public int getId() {
@@ -35,12 +35,12 @@ public class Stap {
         this.bluetoothdoelwaarde = bluetoothdoelwaarde;
     }
 
-    public int getOefeningId() {
-        return oefeningId;
+    public int getOefeningType() {
+        return oefeningType;
     }
 
-    public void setOefeningId(int oefeningId) {
-        this.oefeningId = oefeningId;
+    public void setOefeningType(int oefeningId) {
+        this.oefeningType = oefeningId;
     }
 
     public int getVoltooid() {
